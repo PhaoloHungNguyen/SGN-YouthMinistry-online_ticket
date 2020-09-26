@@ -32,7 +32,7 @@ driver=webdriver.Firefox(executable_path="/home/paulnguyen/PycharmProjects/gecko
 #driver = webdriver.Ie(executable_path="C:\\IEDriverServer.exe")
 # driver = webdriver.Chrome(executable_path="/home/paulnguyen/PycharmProjects/chromedriver_ChromeV85/chromedriver")
 
-driver.get("http://carloauticus.com/index_line1.html")
+driver.get("http://carloauticus.com/index_line.html")
 
 # use creds to create a client to interact with the Google Drive API
 scope = [
