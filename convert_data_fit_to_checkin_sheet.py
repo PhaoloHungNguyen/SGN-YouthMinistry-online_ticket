@@ -24,16 +24,3 @@ def convert(arr_Successfull_Register_User):
         "Group": arr_Successfull_Register_User[8]
     }
     return check_in_user
-
-# scope = [
-#     'https://www.googleapis.com/auth/drive',
-#     'https://www.googleapis.com/auth/drive.file'
-#     ]
-# creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
-# client = gspread.authorize(creds)
-#
-# sheetSuccessfulRegister = client.open("1-SuccessfullRegister").sheet1
-# users = sheetSuccessfulRegister.get_all_values()
-# user = users[1]
-# converted_user = convert(user)
-# print(converted_user["FullName"])
