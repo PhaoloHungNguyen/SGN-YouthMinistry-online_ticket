@@ -85,42 +85,41 @@ def check_in_line(iLineNo, no_participant_of_line):
     }
     sheet_of_lineNo = switcher.get(iLineNo, [])
 
-    row_to_check = sheet_of_lineNo.row_values(2)
-    if row_to_check:
-        print(row_to_check)
-        try:
-            arrRow = row_to_check[1].split("\n")
-            sQRCode = arrRow[2]
-        except Exception as e:
-            # print("Vé không hợp lệ")
-            sQRCode = ""
+    while True:
+        row_to_check = sheet_of_lineNo.row_values(2)
+        if row_to_check:
+            print(row_to_check)
+            try:
+                arrRow = row_to_check[1].split("\n")
+                sQRCode = arrRow[2]
+            except Exception as e:
+                # print("Vé không hợp lệ")
+                sQRCode = ""
 
-        status_of_checking_ticket = "N"
-        try:
-            value_index = col_QRcodes.index(sQRCode)    # index of string sQRCode in string list col_QRCodes
-        except Exception as e:
-            value_index = -1
-            status_of_checking_ticket = "W"    # fake ticket
-            print("Vé không hợp lệ")
+            status_of_checking_ticket = "N"
+            try:
+                value_index = col_QRcodes.index(sQRCode)    # index of string sQRCode in string list col_QRCodes
+            except Exception as e:
+                value_index = -1
+                status_of_checking_ticket = "W"    # fake ticket
+                print("Vé không hợp lệ")
 
-        if value_index > 0:
-            print("Vé Hợp Lệ")
-            # print("value_index = {}".format(value_index))
-            status_of_checking_ticket = col_CheckInStatus[value_index]  # get current status of checking_ticket
-            if status_of_checking_ticket == 'N':
-                no_participant_of_line = no_participant_of_line +1
-                sheet_of_lineNo.update_cell(1, 3, no_participant_of_line)
-            col_CheckInStatus[value_index] = 'Y'    # update status in array first, then update status in sheet through function update_participant_and_screen
+            if value_index > 0:
+                print("Vé Hợp Lệ")
+                # print("value_index = {}".format(value_index))
+                status_of_checking_ticket = col_CheckInStatus[value_index]  # get current status of checking_ticket
+                if status_of_checking_ticket == 'N':
+                    no_participant_of_line = no_participant_of_line +1
+                    sheet_of_lineNo.update_cell(1, 3, no_participant_of_line)
+                col_CheckInStatus[value_index] = 'Y'    # update status in array first, then update status in sheet through function update_participant_and_screen
 
-        iPosiion = value_index + 1
-        update_participant_and_screen(iPosiion, status_of_checking_ticket, no_participant_of_line, iLineNo)
-        sheet_of_lineNo.delete_rows(2, 2),
-    else:
-        print("no data to check")
-        time.sleep(1.5)
-    check_in_line(iLineNo, no_participant_of_line)
-
-# check_in_line(4)
+            iPosiion = value_index + 1
+            update_participant_and_screen(iPosiion, status_of_checking_ticket, no_participant_of_line, iLineNo)
+            sheet_of_lineNo.delete_rows(2, 2),
+        else:
+            print("no data to check")
+            time.sleep(1.5)
+        # check_in_line(iLineNo, no_participant_of_line)
 
 threads = list()
 for i in range(1, 5, 1):
