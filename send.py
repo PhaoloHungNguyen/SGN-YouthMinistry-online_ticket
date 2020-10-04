@@ -11,14 +11,14 @@ from conf import conf
 DEFAULT_TEMPLATE_PATH = './template/'
 
 def send(to_addr, image_name, full_name):
-    # to_addr = 'nhhung_80@yahoo.com'
-    cc_addr = 'phaolo.hung.nguyen@gmail.com'
     # image_logo = 'MVGT-TGP-Sai-Gon-Logo-web.png'
     # image_carlo = 'carlo_acutis.jpg'
     # image_ticket = 'e_ticket.png'
     # full_name = 'Nguyễn Kiểm Email'
 
+    cc_addr = conf.cc_addr
     from_mail = conf.username
+    from_mail_password = conf.password
     msg = MIMEMultipart()
     msg['From'] = "Carlo Acutis - MVGTSG <{}>".format(conf.username)
     msg['To'] = to_addr
@@ -63,7 +63,7 @@ def send(to_addr, image_name, full_name):
 
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login(from_mail, conf.password)
+    s.login(from_mail, from_mail_password)
     text = msg.as_string()
 
     s.sendmail(from_mail, to_adds, text)
