@@ -39,7 +39,7 @@ scope = [
     'https://www.googleapis.com/auth/drive',
     'https://www.googleapis.com/auth/drive.file'
     ]
-creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('template/client_secret1.json', scope)
 client = gspread.authorize(creds)
 
 # Find a workbook by name and open the first sheet

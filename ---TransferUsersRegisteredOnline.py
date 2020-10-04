@@ -21,7 +21,7 @@ def TransferUsersRegisteredOnline():  # check if paid and not_sent_email, then s
         'https://www.googleapis.com/auth/drive',
         'https://www.googleapis.com/auth/drive.file'
         ]
-    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('template/client_secret1.json', scope)
     client = gspread.authorize(creds)
 
     sheetOnlineRegister = client.open("1-OnlineRegister").sheet1
