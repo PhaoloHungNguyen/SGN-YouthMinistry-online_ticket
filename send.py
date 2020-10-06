@@ -22,6 +22,7 @@ def send(to_addr, image_name, full_name):
     msg = MIMEMultipart()
     msg['From'] = "Carlo Acutis - MVGTSG <{}>".format(conf.username)
     msg['To'] = to_addr
+    msg.add_header('reply-to', cc_addr)
     msg['CC'] = cc_addr
     msg['Subject'] = "[ {} ] Mời {} tham gia Chương Trình Hòa Mạng Cùng Carlo".format("Carlo Acutis", full_name)
     to_adds = [to_addr] + [cc_addr]
@@ -70,16 +71,3 @@ def send(to_addr, image_name, full_name):
     s.quit()
 
 #send()
-
-
-
-
-
-
-
-''' 
-
-remains :  cc to email 
-
-
-''' 
