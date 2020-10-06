@@ -99,8 +99,8 @@ def check_and_send():  # check if paid and not_sent_email, then send email
     creds = ServiceAccountCredentials.from_json_keyfile_name('template/client_secret1.json', scope)
     client = gspread.authorize(creds)
 
-    sheetSuccessfulRegister = client.open("Copy 1-SuccessfullRegister").sheet1
-    sheetCheckin = client.open("Copy 2-Check-in").sheet1
+    sheetSuccessfulRegister = client.open("1-SuccessfullRegister").sheet1
+    sheetCheckin = client.open("2-Check-in").sheet1
 
     users = sheetSuccessfulRegister.get_all_values()
 #    col_Paid = sheetListOfRegisteredUser.col_values(10)
