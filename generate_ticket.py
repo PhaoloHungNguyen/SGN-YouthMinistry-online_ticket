@@ -1,4 +1,6 @@
 # Original file name of Venn (Khoa) is check.py
+import time
+
 import pyqrcode
 import png
 # from pyqrcode import QRCode
@@ -12,6 +14,8 @@ from convert_data_fit_to_checkin_sheet import convert
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from PIL import Image, ImageDraw, ImageFont
+
+from send_email_inform_user_received_ticket import send_notification
 
 """
 For insert image to another image:
@@ -91,7 +95,7 @@ def generate_ticket(sShortCode, sFullCode, sFullName, sObject) :
 # How to enable GoogleSheet API: https://developers.google.com/sheets/api/quickstart/python
 # interact with GSheet: https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html
 
-def check_and_send():  # check if paid and not_sent_email, then send email
+def check_and_send():  # nd email to users in 1-SuccessfullRegister Gsheet, move these users to GSheet 2-Check-in
     scope = [
         'https://www.googleapis.com/auth/drive',
         'https://www.googleapis.com/auth/drive.file'
@@ -120,6 +124,8 @@ def check_and_send():  # check if paid and not_sent_email, then send email
             image_ticket = sCode + '.png'
             generate_ticket(sCode, sFull_Code, sFullName, user_info["Object"])
             send(sEmail, image_ticket, sFullName)
+            # send_notification(sEmail)
+
             # print(user_info)
             sheetCheckin.append_row([user_info["timestamp"], user_info["FullName"], user_info["Birthday"], user_info["PhoneNo"],
                                     user_info["Email"], user_info["Gender"], user_info["QRCode"], user_info["Object"],
@@ -130,7 +136,11 @@ def check_and_send():  # check if paid and not_sent_email, then send email
 
 
 def main() :
-    check_and_send()
+    while True:
+        print("Gửi email")
+        check_and_send()
+        print("1 phút sau sẽ gửi tiếp")
+        time.sleep(60)
 
 
 
