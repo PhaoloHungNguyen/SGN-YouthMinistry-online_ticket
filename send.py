@@ -10,7 +10,7 @@ from conf import conf
 
 DEFAULT_TEMPLATE_PATH = './template/'
 
-def send(to_addr, image_name, full_name):
+def send(to_addr, image_name, full_name, sWorkshopID):
     # image_logo = 'MVGT-TGP-Sai-Gon-Logo-web.png'
     # image_carlo = 'carlo_acutis.jpg'
     # image_ticket = 'e_ticket.png'
@@ -20,20 +20,22 @@ def send(to_addr, image_name, full_name):
     from_mail = conf.username
     from_mail_password = conf.password
     msg = MIMEMultipart()
-    msg['From'] = "Carlo Acutis - MVGTSG <{}>".format(conf.username)
+    msg['From'] = "MVGTSG <{}>".format(conf.username)
     msg['To'] = to_addr
     msg.add_header('reply-to', cc_addr)
     msg['CC'] = cc_addr
-    msg['Subject'] = "[ {} ] Mời {} tham gia Chương Trình Hòa Mạng Cùng Carlo".format("Carlo Acutis", full_name)
-    to_adds = [to_addr] + [cc_addr]
+    msg['Subject'] = "[ {} ] VÉ THAM DỰ ĐẠI HỘI GIỚI TRẺ 2021 của {}".format("MVGTSG", full_name)
+    to_cc_addr = [to_addr] + [cc_addr]
 
     html_part = MIMEMultipart(_subtype='related')
 
     with open(DEFAULT_TEMPLATE_PATH + 'ticket.html') as html:
         # Create a text/plain message
-        html_raw = MIMEText(html.read(), 'html')
+        sHead = '<p style="text-align: left;"><span style="font-size: large;">Xin chào {} </span></p>'.format(full_name)
+        sHead = sHead + '<p style="text-align: left;"><span style="font-size: large;">Chúc mừng bạn đã đăng ký thành công Đại hội Giới trẻ Mùa Chay Tổng giáo phận Sài Gòn<strong> CHO TIỀM NĂNG TRỖI DẬY</strong> với Workshop {}.</span></p>'.format(sWorkshopID)
+        html_raw = MIMEText(sHead + html.read(), 'html')
 
-    # If not read html_raw from file, using html string instead, using below code
+    # If not read html_raw from file, using html string instead, using bw code
     # Set correct scale of image size so that the QRCode image is a square which is catchable by app
     #
     # body = MIMEText('''<p>Hello <strong> {} </strong> </p>
@@ -67,7 +69,7 @@ def send(to_addr, image_name, full_name):
     s.login(from_mail, from_mail_password)
     text = msg.as_string()
 
-    s.sendmail(from_mail, to_adds, text)
+    s.sendmail(from_mail, to_cc_addr, text)
     s.quit()
 
-#send()
+# send("maryhoaian@gmail.com", "DhsinmZI3vRa3DyZeMWEew.png", "An direct email", "6")

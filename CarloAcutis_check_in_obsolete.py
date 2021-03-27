@@ -69,11 +69,11 @@ for i in range(1,5,1): #[1,4)
 
 # sheetCheckInUser = client1.open("2-Check-in").sheet1
 col_QRcodes = sheet_checkin_user_for_lines[0].col_values(7)
-time.sleep(1)
+time.sleep(2)
 col_CheckInStatus = sheet_checkin_user_for_lines[0].col_values(9)
-time.sleep(1)
+time.sleep(2)
 col_FullName = sheet_checkin_user_for_lines[0].col_values(2)
-time.sleep(1)
+time.sleep(2)
 music_playing = "N"
 def welcome_vip():
     global music_playing
@@ -144,7 +144,7 @@ def check_in_line(iLineNo):
         try:
             row_to_check = sheet_of_lineNo.row_values(2)
         except Exception as e:
-            print("Important Note: Can't read Gsheet Line{},\nMaybe caused by internet connection issue".format(iLineNo))
+            print("Important Note: Can't read Gsheet Line{},\nMaybe caused by bad internet connection".format(iLineNo))
         else:
            if row_to_check:
                 print(row_to_check)
