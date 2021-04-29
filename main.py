@@ -1,4 +1,6 @@
-name = "Nguyễn Huynh    Hưng"
-names = name.split(" ");
+import datetime
+import time
 
-print(names)
+for i in range(1, 2, 1):
+    print(i)
+    print(datetime.datetime.now().strftime("%H:%M:%S"))
